@@ -2,7 +2,10 @@
 
 var fs = require('fs')
 var express = require('express')
+var os = require('os')
 var app = express()
+
+var indexController = require('./controllers/index');
 
 const TYPE = { UNIX: 0, PARSED_TIME: 1, TODAY: 2 }
 
@@ -31,11 +34,7 @@ app.route('/_api/package.json')
     })
   })
 
-app.route('/')
-  .get(function (req, res) {
-    // res.sendFile(process.cwd() + '/views/index.html');
-    res.render('index')
-  })
+app.route('/').get(indexController.index)
 
 // Respond not found to all the wrong routes
 app.use(function (req, res, next) {
